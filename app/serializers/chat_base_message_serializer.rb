@@ -11,7 +11,8 @@ class ChatBaseMessageSerializer < ApplicationSerializer
     :deleted_by_id,
     :flag_count,
     :edited,
-    :reactions
+    :reactions,
+    :posts
 
   has_one :user, serializer: BasicUserSerializer, embed: :objects
   has_one :chat_webhook_event, serializer: ChatWebhookEventSerializer, embed: :objects
@@ -37,6 +38,14 @@ class ChatBaseMessageSerializer < ApplicationSerializer
 
   def users_reactions
     @users_reactions ||= object.reactions.select { |reaction| reaction.user_id == scope.user.id }.map(&:emoji)
+  end
+
+  def posts
+    object.posts.map { |post| { url: post.url, topic_title: post.topic.title } }
+  end
+
+  def include_posts?
+    object.posts.any?
   end
 
   def edited

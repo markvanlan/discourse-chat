@@ -171,6 +171,12 @@
                 </div>
               {{/if}}
 
+              {{#if message.posts}}
+                <a href onclick={{action "openPostsPopup"}} class="tc-message-post-link">
+                  {{d-icon "share"}}
+                </a>
+              {{/if}}
+
               {{#if hasReactions}}
                 <div class="chat-message-reaction-list">
                   {{#if reactionLabel}}

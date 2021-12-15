@@ -522,6 +522,12 @@ export default Component.extend({
   },
 
   @action
+  openPostsPopup() {
+    console.log('here')
+    return false;
+  },
+
+  @action
   copyLinkToMessage() {
     this.element
       .querySelector(".link-to-message-btn")

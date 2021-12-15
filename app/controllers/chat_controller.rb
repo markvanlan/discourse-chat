@@ -146,12 +146,9 @@ class DiscourseChat::ChatController < DiscourseChat::ChatBaseController
 
     # n.b.: must fetch ID before querying DB
     messages = ChatMessage
-      .includes(:in_reply_to)
-      .includes(:revisions)
-      .includes(:user)
+      .includes(:in_reply_to, :revisions, :user, :uploads)
+      .includes(posts: :topic)
       .includes(chat_webhook_event: :incoming_chat_webhook)
-      .includes(reactions: :user)
-      .includes(:uploads)
       .includes(chat_channel: :chatable)
       .where(chat_channel: @chat_channel)
 
